@@ -1,0 +1,35 @@
+{
+  "name": "@web3yak/web3domain",
+  "version": "1.0.4",
+  "description": "Looking up cryptocurrency & website address from Web3 Domain Name (ENS, Unstoppable domain & W3D",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.1.4",
+    "@unstoppabledomains/resolution": "^8.3.3",
+    "axios": "^1.2.2",
+    "ethers": "^5.7.2",
+    "web3": "^1.8.1"
+  },
+  "keywords": ["Web3 Domain",
+  "web3domain",
+  "ens domain",
+  "ethereum",
+  "blockchain",
+  "resolution",
+  "web3",
+  "domain",
+  "unstoppable"],
+  "author": "Web3Yak",
+  "homepage": "https://web3domain.org/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web3yak/web3domain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/web3yak/web3domain/issues"
+  },
+  "license": "MIT"
+}
