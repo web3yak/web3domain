@@ -3,10 +3,13 @@ A library for interacting with blockchain domain names. It can be used to retrie
 
 Resolution supports different decentralized domains across multiple chains.
 
-*Supports all major Web3 Domain provider. *
+*Supports all major Web3 Domain provider.*
+
 **Ethereum Name Service (ENS)**
-**Unstoppable Domains **
-**Web3Domain - W3D **
+
+**Unstoppable Domains**
+
+**Web3Domain - W3D**
 
 ## Installing Web3Domain Tool
 To install the library use npm.
@@ -22,6 +25,7 @@ Create a new project.
     npm i @web3yak/web3domain`
 	
 **Look up a domain crypto address**
+
 Create a new file in your project, *address.js*.
 
     var w3d = require("@web3yak/web3domain");
@@ -57,6 +61,7 @@ Execute the script
     Wallet address of brad.eth is : 0x0C82A14EDCF37266889e531e58cA516c10C78f18
 
 **Look up a crypto wallet address from the domain name**
+
 Create a new file in your project, domain.js
 
     var w3d = require("@web3yak/web3domain");
@@ -85,6 +90,7 @@ Execute the script
 
 
 **Find the IPFS hash for a decentralized website**
+
 Create a new file in your project, hash.js.
 
     var w3d = require("@web3yak/web3domain");
