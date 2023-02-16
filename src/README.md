@@ -24,7 +24,7 @@ Create a new project.
     yarn init -y
     npm i @web3yak/web3domain`
 	
-**Look up a domain crypto address**
+**Look up a domain for cryptocurrency address**
 
 Create a new file in your project, *address.js*.
 
@@ -60,7 +60,7 @@ Execute the script
     Wallet address of jack.demo is : 0x8D714B10B719c65B878F2Ed1436A964E11fA3271
     Wallet address of brad.eth is : 0x0C82A14EDCF37266889e531e58cA516c10C78f18
 
-**Look up a crypto wallet address from the domain name**
+**Look up a cryptocurrency address for Web3 Domain Name**
 
 Create a new file in your project, domain.js
 
@@ -89,7 +89,7 @@ Execute the script
     EVM Address to ENS Domain : brad.eth
 
 
-**Find the IPFS hash for a decentralized website**
+**Find the IPFS hash for a decentralized website from Web3 Domain Name**
 
 Create a new file in your project, hash.js.
 

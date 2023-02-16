@@ -19,3 +19,9 @@ resolve.getWeb("jack.demo").then(x => {
 resolve.getWeb("brad.crypto").then(x => {
     console.log("brad.crypto website url is: " + x);
 }).catch(console.error);
+
+
+//Retrieve website address from ETH
+resolve.getWeb("vitalik.eth").then(x => {
+    console.log("vitalik.eth website url is: " + x);
+}).catch(console.error);

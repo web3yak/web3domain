@@ -1,7 +1,7 @@
 class Web3Domain {
 
   constructor(settings) {
-    this.privatekey = '7ec24dacf686fd2502bd29064199cd0d46ceaf516b59acb339b8885825391a4d'; //Fake wallet private key
+    this.privatekey = '7ec24dacf686fd2502bd29064199cd0d46ceaf516b59acb339b8885825391a4d'; //Random wallet private key
     this.matic_rpc_url = settings.matic_rpc_url; //Polygon RPC URL
     this.eth_rpc_url = settings.eth_rpc_url; //Ethereum RPC URL
 
@@ -16,7 +16,7 @@ class Web3Domain {
     this.provider = new this.Provider(this.privatekey, this.matic_rpc_url);
     this.web3 = new Web3(this.provider);
     this.myContract = new this.web3.eth.Contract(this.SmartContractABI, this.SmartContractAddress);
-    
+
   }
 
   getAddress(name, curr) {
@@ -31,7 +31,7 @@ class Web3Domain {
   }
 
 
-  getDomain(addr,provider) {
+  getDomain(addr, provider) {
 
     if (provider == "ENS") {
       return this.w3d_addr_eth(addr);
@@ -41,21 +41,22 @@ class Web3Domain {
       return this.w3d_web3_getReverse(addr);
     }
   }
-  
-  
+
+
   getWeb(name) {
     var domain_provider = this.w3d_find_provider(name);
     if (domain_provider == "eth") {
-      return this.w3d_blank();
+     // return this.w3d_blank();
+     return this.w3d_eth_website(name);
     } else if (domain_provider == "unstop") {
       return this.w3d_unstop_website(name);
     } else {
       return this.w3d_web3_website(name);
     }
   }
-  
+
   w3d_blank = async () => {
-return "null";
+    return "null";
   }
 
   w3d_web3_getReverse = async (addr) => {
@@ -66,7 +67,7 @@ return "null";
       return null;
     }
   };
-  
+
   w3d_unstop_resolve_domain = async (domain, currency) => {
     const { default: Resolution } = require("@unstoppabledomains/resolution");
     const resolution = new Resolution();
@@ -87,15 +88,15 @@ return "null";
     } catch (error) {
       return null;
     }
-  
+
   }
-  
+
   w3d_web3_website = async (name) => {
-  
+
     try {
       var id = await this.myContract.methods.getID(name).call();
       var tokenURI = await this.myContract.methods.tokenURI(id).call();
-  
+
       if (this.w3d_isValidUrl(tokenURI)) {
         var web_url = await this.w3d_fetch_from_json(tokenURI);
         if (tokenURI != null) {
@@ -113,27 +114,37 @@ return "null";
           return null;
         }
       }
-  
-  
+
+
     } catch (error) {
       return null;
     }
-  
+
   }
-  
+
 
   w3d_eth_addr = async (name) => {
     const ethers = require("ethers");
     const provider = new ethers.providers.JsonRpcProvider(this.eth_rpc_url);
-   const address = await provider.resolveName(name);
+    const address = await provider.resolveName(name);
     return address;
   };
-  
+
   w3d_addr_eth = async (addr) => {
     const ethers = require("ethers");
     const provider = new ethers.providers.JsonRpcProvider(this.eth_rpc_url);
     const name = await provider.lookupAddress(addr);
     return name;
+  };
+
+
+  w3d_eth_website = async (name) => {
+    const ethers = require("ethers");
+    const provider = new ethers.providers.JsonRpcProvider(this.eth_rpc_url);
+
+    const resolver = await provider.getResolver(name);
+    const contentHash = await resolver.getContentHash();
+    return contentHash;
   };
 
   splitDomain(title, part) {
@@ -167,8 +178,8 @@ return "null";
       return false;
     }
   }
-  
-  
+
+
   async w3d_fetch_from_json(url) {
     var axios = require('axios');
     try {
@@ -177,7 +188,7 @@ return "null";
       var web_url = json_data.records["50"].value;
       var web3_url = '';
       if (json_data.records.hasOwnProperty('51')) {
-  
+
         var web3_url = json_data.records["51"].value;
       }
       if (web3_url != '') {
@@ -185,14 +196,14 @@ return "null";
       }
       else {
         return web_url;
-  
+
       }
-  
+
     }
     catch (error) {
       return null;
     }
-  
+
   }
 
   w3d_find_provider(name) {
