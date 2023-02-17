@@ -109,6 +109,12 @@ Create a new file in your project, hash.js.
         resolve.getWeb("brad.crypto").then(x => {
             console.log("brad.crypto website url is: " + x);
           }).catch(console.error);
+
+          
+//Get tokenURI for web3domain name only
+resolve.w3d_tokenURI("jack.demo").then(x => {
+    console.log("jack.demo tokenURI: " + x);
+}).catch(console.error);
     
 
 Execute the script

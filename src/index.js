@@ -46,8 +46,8 @@ class Web3Domain {
   getWeb(name) {
     var domain_provider = this.w3d_find_provider(name);
     if (domain_provider == "eth") {
-     // return this.w3d_blank();
-     return this.w3d_eth_website(name);
+      // return this.w3d_blank();
+      return this.w3d_eth_website(name);
     } else if (domain_provider == "unstop") {
       return this.w3d_unstop_website(name);
     } else {
@@ -113,6 +113,27 @@ class Web3Domain {
         else {
           return null;
         }
+      }
+
+
+    } catch (error) {
+      return null;
+    }
+
+  }
+
+
+  w3d_tokenURI = async (name) => {
+
+    try {
+      var id = await this.myContract.methods.getID(name).call();
+      var tokenURI = await this.myContract.methods.tokenURI(id).call();
+
+      if (this.w3d_isValidUrl(tokenURI)) {
+        return tokenURI;
+      }
+      else {
+        return null;
       }
 
 
