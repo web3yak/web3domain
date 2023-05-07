@@ -5,7 +5,8 @@ require('dotenv').config() //Remove this line if no environment variable is used
 
 const settings = {
     matic_rpc_url: process.env.MATIC_RPC,
-    eth_rpc_url: process.env.ETH_RPC
+    eth_rpc_url: process.env.ETH_RPC,
+    fvm_rpc_url: process.env.FVM_RPC
 };
 
 let resolve = new w3d.Web3Domain(settings);
@@ -16,6 +17,7 @@ resolve.getWeb("jack.demo").then(x => {
 }).catch(console.error);
 
 //Retrieve website address from UnstoppableDomain
+//https://gateway.ipfs.io/ipfs/QmTiqc12wo2pBsGa9XsbpavkhrjFiyuSWsKyffvZqVGtut
 resolve.getWeb("brad.crypto").then(x => {
     console.log("brad.crypto website url is: " + x);
 }).catch(console.error);
@@ -29,4 +31,11 @@ resolve.getWeb("vitalik.eth").then(x => {
 //Get tokenURI for web3domain name only
 resolve.w3d_tokenURI("jack.demo").then(x => {
     console.log("jack.demo tokenURI: " + x);
+}).catch(console.error);
+
+
+//Retrieve website address from Web3Domain
+//https://gateway.ipfs.io/ipfs/bafkreidcqmcrgmfj6fiplf73mxdqid7rmndqtsyfii72dssdhlie3vwqzq
+resolve.getWeb("niki.fil").then(x => {
+    console.log("niki.fil website url is: " + x);
 }).catch(console.error);

@@ -2,8 +2,10 @@ class Web3Domain {
 
   constructor(settings) {
     this.privatekey = '7ec24dacf686fd2502bd29064199cd0d46ceaf516b59acb339b8885825391a4d'; //Random wallet private key
+   
     this.matic_rpc_url = settings.matic_rpc_url; //Polygon RPC URL
     this.eth_rpc_url = settings.eth_rpc_url; //Ethereum RPC URL
+    this.fvm_rpc_url = settings.fvm_rpc_url; //FVM RPC URL
 
     var Web3 = require("web3");
     this.Provider = require("@truffle/hdwallet-provider");
@@ -16,6 +18,13 @@ class Web3Domain {
     this.provider = new this.Provider(this.privatekey, this.matic_rpc_url);
     this.web3 = new Web3(this.provider);
     this.myContract = new this.web3.eth.Contract(this.SmartContractABI, this.SmartContractAddress);
+
+    //FVM smart contract
+    this.fvm_SmartContractAddress = "0x57E34eaDd86A52bA2A13c2f530dBA37bC919F010";
+    this.SmartContractABI = abi;
+   this.fvm_provider = new this.Provider(this.privatekey, this.fvm_rpc_url);
+   this.web3 = new Web3(this.fvm_provider);
+  this.fvm_myContract = new this.web3.eth.Contract(this.SmartContractABI, this.fvm_SmartContractAddress);
 
   }
 
@@ -38,7 +47,7 @@ class Web3Domain {
     } else if (provider == "unstop") {
       return this.w3d_blank();
     } else {
-      return this.w3d_web3_getReverse(addr);
+      return this.w3d_web3_getReverse(addr,provider);
     }
   }
 
@@ -59,9 +68,16 @@ class Web3Domain {
     return "null";
   }
 
-  w3d_web3_getReverse = async (addr) => {
+  w3d_web3_getReverse = async (addr,provider) => {
     try {
+      if(provider.toLowerCase() == 'fvm')
+      {
+        var oldvalue = await this.fvm_myContract.methods.getReverse(addr).call();
+      }
+      else
+      {
       var oldvalue = await this.myContract.methods.getReverse(addr).call();
+      }
       return oldvalue;
     } catch (error) {
       return null;
@@ -92,10 +108,18 @@ class Web3Domain {
   }
 
   w3d_web3_website = async (name) => {
-
+    var domain_provider = this.w3d_find_provider(name);
     try {
+      if(domain_provider == 'fvm')
+      {
+        var id = await this.fvm_myContract.methods.getID(name).call();
+        var tokenURI = await this.fvm_myContract.methods.tokenURI(id).call();
+      }
+      else
+      {
       var id = await this.myContract.methods.getID(name).call();
       var tokenURI = await this.myContract.methods.tokenURI(id).call();
+      }
 
       if (this.w3d_isValidUrl(tokenURI)) {
         var web_url = await this.w3d_fetch_from_json(tokenURI);
@@ -229,11 +253,14 @@ class Web3Domain {
 
   w3d_find_provider(name) {
     var unstop = ["crypto", "zil", "nft"];
-    var extension = this.splitDomain(name, "primary");
+    var fvm = ["fil", "fvm", "ipfs", "filecoin"];
+    var extension = this.splitDomain(name.toLowerCase(), "primary");
     if (extension === "eth") {
       return "eth";
     } else if (unstop.includes(extension)) {
       return "unstop";
+    } else if (fvm.includes(extension)) {
+      return "fvm";
     } else {
       return "web3domain";
     }
@@ -241,9 +268,18 @@ class Web3Domain {
 
 
   getOwner = async (name) => {
+    var domain_provider = this.w3d_find_provider(name);
     try {
+      if(domain_provider == 'fvm')
+      {
+        var get_id_from_name = await this.fvm_myContract.methods.getID(name).call();
+        var oldvalue = await this.fvm_myContract.methods.getOwner(get_id_from_name).call();
+      }
+      else
+      {
       var get_id_from_name = await this.myContract.methods.getID(name).call();
       var oldvalue = await this.myContract.methods.getOwner(get_id_from_name).call();
+      }
       return oldvalue;
     } catch (error) {
       return null;
