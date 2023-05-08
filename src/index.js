@@ -149,9 +149,18 @@ class Web3Domain {
 
   w3d_tokenURI = async (name) => {
 
+    var domain_provider = this.w3d_find_provider(name);
     try {
-      var id = await this.myContract.methods.getID(name).call();
+      if(domain_provider == 'fvm')
+      {
+      var id = await this.fvm_myContract.methods.getID(name).call();
+      var tokenURI = await this.fvm_myContract.methods.tokenURI(id).call();
+      }
+      else
+      {
+        var id = await this.myContract.methods.getID(name).call();
       var tokenURI = await this.myContract.methods.tokenURI(id).call();
+      }
 
       if (this.w3d_isValidUrl(tokenURI)) {
         return tokenURI;

@@ -39,3 +39,10 @@ resolve.w3d_tokenURI("jack.demo").then(x => {
 resolve.getWeb("niki.fil").then(x => {
     console.log("niki.fil website url is: " + x);
 }).catch(console.error);
+
+
+//Get tokenURI for web3domain name only
+//https://web3yak.com/temp/niki.fil.json
+resolve.w3d_tokenURI("niki.fil").then(x => {
+    console.log("niki.fil tokenURI: " + x);
+}).catch(console.error);
