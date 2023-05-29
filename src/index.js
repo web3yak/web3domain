@@ -124,7 +124,14 @@ class Web3Domain {
       if (this.w3d_isValidUrl(tokenURI)) {
         var web_url = await this.w3d_fetch_from_json(tokenURI);
         if (tokenURI != null) {
+          if(this.w3d_isValidUrl(web_url))
+          {
+            return web_url;
+          }
+          else
+          {
           return "https://gateway.ipfs.io/ipfs/" + web_url;
+          }
         }
         else {
           return null;

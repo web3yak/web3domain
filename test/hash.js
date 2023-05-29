@@ -16,6 +16,11 @@ resolve.getWeb("jack.demo").then(x => {
     console.log("jack.demo website url is: " + x);
 }).catch(console.error);
 
+//Retrieve website address from Web3Domain
+resolve.getWeb("odude").then(x => {
+    console.log("odude redirected website url is: " + x);
+}).catch(console.error);
+
 //Retrieve website address from UnstoppableDomain
 //https://gateway.ipfs.io/ipfs/QmTiqc12wo2pBsGa9XsbpavkhrjFiyuSWsKyffvZqVGtut
 resolve.getWeb("brad.crypto").then(x => {
