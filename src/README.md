@@ -68,7 +68,8 @@ Create a new file in your project, domain.js
     
         const settings = {
           matic_rpc_url: "https://polygon-mainnet.g.alchemy.com/v2/..........",  //Get your own RPC free URL
-          eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................" //Get your own RPC free URL
+          eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................", //Get your own RPC free URL
+          fvm_rpc_url: "https://api.node.glif.io/rpc/v1"
         };
         let resolve = new w3d.Web3Domain(settings);
     
@@ -96,7 +97,8 @@ Create a new file in your project, hash.js.
     var w3d = require("@web3yak/web3domain");
         const settings = {
           matic_rpc_url: "https://polygon-mainnet.g.alchemy.com/v2/..........",  //Get your own RPC free URL
-          eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................" //Get your own RPC free URL
+          eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................", //Get your own RPC free URL
+          fvm_rpc_url: "https://api.node.glif.io/rpc/v1"
         };
         let resolve = new w3d.Web3Domain(settings);
     

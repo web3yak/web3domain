@@ -1,6 +1,6 @@
 {
   "name": "@web3yak/web3domain",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Looking up cryptocurrency & website address from Web3 Domain Name (ENS, Unstoppable domain, FVM & YAK)",
   "main": "index.js",
   "scripts": {

@@ -302,6 +302,51 @@ class Web3Domain {
     }
   };
 
+  geTotalDomain = async (addr) => {
+    try {
+   
+    var total = await this.myContract.methods.balanceOf(addr).call();
+  
+    return total;
+  } catch (error) {
+    return null;
+  }
+};
+
+getDomainList = async (addr) => {
+  try {
+ 
+  var count=  await this.geTotalDomain(addr);
+  //console.log(count);
+  let activities = [];
+  for (let i = 0; i < count; i++) {
+    console.log(i);
+  var id = await this.myContract.methods.tokenOfOwnerByIndex(addr,i).call();
+ // console.log(id);
+ var title = await this.getDomainNameById(id);
+ activities.push([id,title]);
+//console.log(id + ' --- '+ title);
+  }
+  console.table(activities);
+  return count;
+} catch (error) {
+  return null;
+}
+};
+
+
+getDomainNameById = async (id) => {
+  try {
+ 
+var domain_name = await this.myContract.methods.titleOf(id).call();
+return domain_name;
+  }
+catch (error) {
+  return null;
+}
+};
+
+
 }
 
 module.exports = { Web3Domain };

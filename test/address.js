@@ -30,3 +30,9 @@ resolve.getAddress("brad.eth", "ETH").then(x => {
 resolve.getAddress("brad.crypto", "ETH").then(x => {
   console.log("Wallet address of brad.crypto is : " + x);
 }).catch(console.error);
+
+
+//Retrieves Not minted from the Web3Domain
+resolve.getAddress("jaiiiiiiiiiiiick.demo", "ETH").then(x => {
+  console.log("Wallet address of jaiiiiiiiiiiiiiiick.demo is : " + x);
+}).catch(console.error);
