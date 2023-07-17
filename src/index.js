@@ -328,7 +328,7 @@ getDomainList = async (addr) => {
 //console.log(id + ' --- '+ title);
   }
   console.table(activities);
-  return count;
+  return activities;
 } catch (error) {
   return null;
 }

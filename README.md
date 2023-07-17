@@ -24,7 +24,7 @@ Create a new project.
     yarn init -y
     npm i @web3yak/web3domain`
 	
-**Look up a domain crypto address**
+**Look up a domain for cryptocurrency address**
 
 Create a new file in your project, *address.js*.
 
@@ -32,7 +32,8 @@ Create a new file in your project, *address.js*.
     
     const settings = {
       matic_rpc_url: "https://polygon-mainnet.g.alchemy.com/v2/..........",  //Get your own RPC free URL
-      eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................" //Get your own RPC free URL
+      eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................", //Get your own RPC free URL
+      fvm_rpc_url: "https://api.node.glif.io/rpc/v1"
     };
     
     let resolve = new w3d.Web3Domain(settings);
@@ -60,7 +61,7 @@ Execute the script
     Wallet address of jack.demo is : 0x8D714B10B719c65B878F2Ed1436A964E11fA3271
     Wallet address of brad.eth is : 0x0C82A14EDCF37266889e531e58cA516c10C78f18
 
-**Look up a crypto wallet address from the domain name**
+**Look up a cryptocurrency address for Web3 Domain Name**
 
 Create a new file in your project, domain.js
 
@@ -68,7 +69,8 @@ Create a new file in your project, domain.js
     
         const settings = {
           matic_rpc_url: "https://polygon-mainnet.g.alchemy.com/v2/..........",  //Get your own RPC free URL
-          eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................" //Get your own RPC free URL
+          eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................", //Get your own RPC free URL
+          fvm_rpc_url: "https://api.node.glif.io/rpc/v1"
         };
         let resolve = new w3d.Web3Domain(settings);
     
@@ -89,14 +91,15 @@ Execute the script
     EVM Address to ENS Domain : brad.eth
 
 
-**Find the IPFS hash for a decentralized website**
+**Find the IPFS hash for a decentralized website from Web3 Domain Name**
 
 Create a new file in your project, hash.js.
 
     var w3d = require("@web3yak/web3domain");
         const settings = {
           matic_rpc_url: "https://polygon-mainnet.g.alchemy.com/v2/..........",  //Get your own RPC free URL
-          eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................" //Get your own RPC free URL
+          eth_rpc_url: "https://eth-mainnet.g.alchemy.com/v2/................", //Get your own RPC free URL
+          fvm_rpc_url: "https://api.node.glif.io/rpc/v1"
         };
         let resolve = new w3d.Web3Domain(settings);
     
@@ -109,12 +112,6 @@ Create a new file in your project, hash.js.
         resolve.getWeb("brad.crypto").then(x => {
             console.log("brad.crypto website url is: " + x);
           }).catch(console.error);
-
-          
-//Get tokenURI for web3domain name only
-resolve.w3d_tokenURI("jack.demo").then(x => {
-    console.log("jack.demo tokenURI: " + x);
-}).catch(console.error);
     
 
 Execute the script
