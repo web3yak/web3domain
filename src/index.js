@@ -302,10 +302,16 @@ class Web3Domain {
     }
   };
 
-  geTotalDomain = async (addr) => {
+  geTotalDomain = async (addr,provider) => {
     try {
-   
+      if(provider == 'fvm')
+      {
+        var total = await this.fvm_myContract.methods.balanceOf(addr).call();
+      }
+      else
+      {
     var total = await this.myContract.methods.balanceOf(addr).call();
+      }
   
     return total;
   } catch (error) {
@@ -313,17 +319,24 @@ class Web3Domain {
   }
 };
 
-getDomainList = async (addr) => {
+getDomainList = async (addr,provider) => {
   try {
  
-  var count=  await this.geTotalDomain(addr);
+  var count=  await this.geTotalDomain(addr,provider);
   //console.log(count);
   let activities = [];
   for (let i = 0; i < count; i++) {
     console.log(i);
-  var id = await this.myContract.methods.tokenOfOwnerByIndex(addr,i).call();
+    if(provider == 'fvm')
+    {
+  var id = await this.fvm_myContract.methods.tokenOfOwnerByIndex(addr,i).call();
+    }
+    else
+    {
+      var id = await this.myContract.methods.tokenOfOwnerByIndex(addr,i).call();
+    }
  // console.log(id);
- var title = await this.getDomainNameById(id);
+ var title = await this.getDomainNameById(id,provider);
  activities.push([id,title]);
 //console.log(id + ' --- '+ title);
   }
@@ -335,11 +348,18 @@ getDomainList = async (addr) => {
 };
 
 
-getDomainNameById = async (id) => {
+getDomainNameById = async (id,provider) => {
   try {
- 
-var domain_name = await this.myContract.methods.titleOf(id).call();
+    if(provider == 'fvm')
+    {
+var domain_name = await this.fvm_myContract.methods.titleOf(id).call();
 return domain_name;
+    }
+    else
+    {
+      var domain_name = await this.myContract.methods.titleOf(id).call();
+return domain_name;
+    }
   }
 catch (error) {
   return null;
